@@ -37,14 +37,15 @@ class Game(object):
     def turn(self, player):
         """A players turn"""
         player.turn = 1
-        print 'it is Player {}\'s turn'.format(player.name)
+        print '\nit is Player {}\'s turn'.format(player.name)
         while player.turn == 1 and player.totscore < 100:
             r = self.die.roll()
             print '\nyou rolled a {}\n'.format(r)
             if r == 1:
                 player.turnscore = 0
                 print ('oops! you rolled a 1, '
-                       'next player.\n\n').format(player.name, player.totscore)
+                       'next player.\n').format(player.name, player.totscore)
+                print '-' * 60, '\n'
                 self.next_player()
             else:
                 player.turnscore += r
@@ -59,18 +60,19 @@ class Game(object):
                         'r = roll h = hold ').lower()
         if ans == 'h':
             player.totscore += player.turnscore
-            print 'your turn is now over\n'
+            print '\nyour turn is now over.\n'
             if player.totscore >= 100:
                 print ('{} wins.').format(player.name, player.totscore)
             else:
                 player.turnscore = 0
                 print ('{}\'s total score is'
                        ' now {}.\n\n').format(player.name, player.totscore)
+                print '-' * 60, '\n'
                 self.next_player()
         elif ans == 'r':
             self.turn(player)
         else:
-            print 'Invalid option, r = roll h = hold'
+            print 'Invalid option, r = roll h = hold '
             self.player_ans(player)     
                 
     def next_player(self):
